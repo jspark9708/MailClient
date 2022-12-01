@@ -10,15 +10,12 @@ class MailServer{
 
         SSLSocketFactory sslsocketf = (SSLSocketFactory) SSLSocketFactory.getDefault();
         System.out.println("연결 시작");
-        //SSLSocket socket = (SSLSocket) socketFactory.createSocket("smtp.gmail.com", 587);
         SSLSocket socket = (SSLSocket)sslsocketf.createSocket("smtp.gmail.com", 465);
 
         System.out.println("연결 성공");
 
         //메일을 받는 서버의 응답을 보기위해서 socket에 InputStream 부착
         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        //Output Stream을 만들어서 socket에 부착
-        //DataOutputStream outToServer = new DataOutputStream(socket.getOutputStream());
         PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
 
         Reply = inFromServer.readLine();

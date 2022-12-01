@@ -1,14 +1,12 @@
-
-        import javax.swing.JFrame;
-        import javax.swing.JPanel;
-        import javax.swing.border.EmptyBorder;
-//import java.awt.BorderLayout;//사용 X
-        import javax.swing.JLabel;
-        import java.awt.Font;
-        import java.awt.event.*;
-        import javax.swing.JTextField;
-        import javax.swing.JButton;
-        import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.event.*;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")//The serializable class OboeObject does not declare a static final serialVersionUID field of type long 방지
 public class MailGUI extends JFrame {
