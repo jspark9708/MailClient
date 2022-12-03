@@ -29,6 +29,7 @@ class MailServer{
         System.out.println(Reply);
 
         //HELO command
+        System.out.println("HELO 명령을 전송합니다.");
         outToServer.println("HELO gmail.com");
         Reply = inFromServer.readLine();
         ReplyCheck(Reply, "250");
@@ -87,6 +88,7 @@ class MailServer{
         socket.close();
     }
 
+    //응답 코드 확인
     public static void ReplyCheck(String Reply, String Status) throws Exception{
         if(!Reply.startsWith(Status))
             throw new Exception(Reply);
