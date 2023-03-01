@@ -1,6 +1,4 @@
 import javax.net.ssl.*;
-import javax.sql.DataSource;
-import java.awt.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -16,7 +14,6 @@ class MailServer{
         //SSLSocket을 만들기 위해서 SSLSocketFactory를 선언, 기본 SSLSocketFactory를 return 하는 함수
         SSLSocketFactory sslsocketf = (SSLSocketFactory) SSLSocketFactory.getDefault();
         System.out.println("연결 시작");
-        //SSLSocket socket = (SSLSocket) socketFactory.createSocket("smtp.gmail.com", 587);
 
         //Secure Socket Layer(암호화 기반 인터넷 보안 프로토콜)를 이용하여 gmail smtp 서버, 465 port에 연결
         SSLSocket socket = (SSLSocket)sslsocketf.createSocket("smtp.gmail.com", 465);
@@ -119,10 +116,7 @@ class MailServer{
 
         reader.close();
         /******************************/
-        //String filename = "info.txt";
-        //String filebody = "파일 내용입니다";
-        //String filepath = "info.txt";
-
+    
         mimeBody += "--KkK170891tpbkKk__FV_KKKkkkjjwq--\r\n";
         outToServer.println(mimeBody);
 
