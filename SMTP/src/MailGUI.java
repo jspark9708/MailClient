@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
-@SuppressWarnings("serial")//The serializable class OboeObject does not declare a static final serialVersionUID field of type long 방지
+@SuppressWarnings("serial")
 public class MailGUI extends JFrame {
 
     private JPanel contentPane;
@@ -23,12 +23,8 @@ public class MailGUI extends JFrame {
     private JLabel bodyForm;
     private JTextArea bodyField;
 
-    /*********/
     private JLabel filename;
 
-    /**
-     * Create the frame.
-     */
     public MailGUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 700, 600);
@@ -37,7 +33,6 @@ public class MailGUI extends JFrame {
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
-
 
         /*From 라벨*/
         JLabel senderForm = new JLabel("보내는 사람");
@@ -59,11 +54,10 @@ public class MailGUI extends JFrame {
         pwField.setBounds(350, 35, 200, 30);
         pwField.setFont(new Font("굴림", Font.PLAIN, 20));
         pwField.add(" --------------------------- ");
-        //아래에 사용자의 google app 비밀번호 입력하기
-        pwField.add("first password");
-        pwField.add("second password");
-        pwField.add("third password");
-        pwField.add("forth password");
+        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
+        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
+        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
+        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
         add(pwField);
 
         /*To 라벨*/
@@ -102,7 +96,6 @@ public class MailGUI extends JFrame {
         bodyField.setBounds(150, 213, 400, 272);
         contentPane.add(bodyField);
 
-        /*********************/
         JButton btnFile = new JButton("파일 첨부");
         btnFile.setBounds(35, 180, 100, 23);
         contentPane.add(btnFile);
@@ -123,7 +116,6 @@ public class MailGUI extends JFrame {
                 }
             }
         });
-        /********************/
 
         /*전송 버튼*/
         JButton sendButton = new JButton("메일 보내기");
@@ -140,7 +132,6 @@ public class MailGUI extends JFrame {
                 String Subject = subjectField.getText();
                 String Body = bodyField.getText();
                 String filepath = filename.getText();
-                
                 if (From.length() *  To.length() * (filepath.length() + Body.length())== 0) { //Subject는 없어도 <제목없음>으로 전송되므로
                     JOptionPane.showMessageDialog(null, "메일 폼을 작성해주세요!");
                 }
