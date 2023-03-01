@@ -140,27 +140,28 @@ public class MailGUI extends JFrame {
                 String Subject = subjectField.getText();
                 String Body = bodyField.getText();
                 String filepath = filename.getText();
-
-                if (From.length() *  To.length() * Body.length() == 0) { //Subject는 없어도 <제목없음>으로 전송되므로
+                
+                if (From.length() *  To.length() * (filepath.length() + Body.length())== 0) { //Subject는 없어도 <제목없음>으로 전송되므로
                     JOptionPane.showMessageDialog(null, "메일 폼을 작성해주세요!");
                 }
-
-                try{
-                    MailServer.MailSender(From, PW, To, Subject, Body, filepath);
-                    JOptionPane.showMessageDialog(null, "메일 보내기 성공!");
-                    System.out.println("==========================");
-                    System.out.println("메일 보내기 성공!");
-                    bodyField.setText("");
-                    subjectField.setText("");
-                    filename.setText("");
-                }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "메일 보내기 실패!");
-                    System.out.println("==========================");
-                    System.out.println("메일 보내기 실패!");
-                    System.out.println(e.toString());
+                else {
+                    try {
+                        MailServer.MailSender(From, PW, To, Subject, Body, filepath);
+                        JOptionPane.showMessageDialog(null, "메일 보내기 성공!");
+                        System.out.println("==========================");
+                        System.out.println("메일 보내기 성공!");
+                        bodyField.setText("");
+                        subjectField.setText("");
+                        filename.setText("");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "메일 보내기 실패!");
+                        System.out.println("==========================");
+                        System.out.println("메일 보내기 실패!");
+                        System.out.println(e.toString());
+                    }
                 }
             }
         });
 
     }
-}
+}      
