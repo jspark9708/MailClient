@@ -1,0 +1,5 @@
+메일 클라이언트 구현의 첨부파일 전송이 제대로 되었는지 확인하기 위한 파일입니다!!
+
+This is a file to verify that the mail client implementation's attachment has been sent properly!!
+
+!! @@ ## $$ %% ^^ && ** (( ))

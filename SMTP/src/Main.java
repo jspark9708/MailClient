@@ -1,10 +1,15 @@
 import javax.net.ssl.*;
+import javax.sql.DataSource;
 import java.awt.*;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 
 class MailServer{
-    public static void MailSender(String From, String PW, String To, String Subject, String Body) throws Exception{
+    public static void MailSender(String From, String PW, String To, String Subject, String Body, String path) throws Exception{
 
         String Reply;
 
@@ -83,24 +88,41 @@ class MailServer{
         header += "Content-Type: multipart/mixed; boundary=KkK170891tpbkKk__FV_KKKkkkjjwq\r\n";
         outToServer.println(header + "\r\n");
 
-
-        String filename = "info.txt";
-        String filebody = "파일 내용입니다";
-        //String filepath = "info.txt";
-
         String mimeBody = ("--KkK170891tpbkKk__FV_KKKkkkjjwq\r\n");
         mimeBody += ("Content-Type: text/plain; charset=\"utf-8\"\r\n\r\n");
         mimeBody += Body + "\r\n";
         mimeBody += "\r\n";
 
+
+        //첨부파일 경로 가져와서 해당 파일의 mimeType 확인 후 이것을 attatch하도록
+
+        /******************************/
+        Path Source = Paths.get(path);
+        String mimeType = Files.probeContentType(Source);
+        String filename = Source.getFileName().toString();
+        System.out.println(filename);
+
         mimeBody += ("--KkK170891tpbkKk__FV_KKKkkkjjwq\r\n");
-        mimeBody += ("Content-Type: text/plain\r\n");
+        mimeBody += ("Content-Type: " + mimeType + "\r\n");
         mimeBody += ("Content-Transfer-Encoding: utf-8\r\n");
         mimeBody += ("Content-Disposition: attachment;\r\n filename=" + filename + "\r\n");
-        //TODO 우리가 지정한 파일을 넣을 수 있도록 코드 수정하기
-        //XXX 아무런 설정도 없는데 파일에 내용이 존재함 --> utf로 변환해보니 아래 --KkK170891tpbkKk__FV_KKKkkkjjwq--\r\n 내용이 들어가있음
         mimeBody += "\r\n";
-        mimeBody += hangul(filebody) + "\r\n";
+
+        BufferedReader reader = new BufferedReader(
+                new FileReader(path, Charset.forName("UTF-8"))
+        );
+
+        String filebody;
+        while ((filebody = reader.readLine()) != null) {
+            mimeBody += hangul(filebody) + "\r\n";
+        }
+
+        reader.close();
+        /******************************/
+        //String filename = "info.txt";
+        //String filebody = "파일 내용입니다";
+        //String filepath = "info.txt";
+
         mimeBody += "--KkK170891tpbkKk__FV_KKKkkkjjwq--\r\n";
         outToServer.println(mimeBody);
 

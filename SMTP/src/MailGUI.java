@@ -2,6 +2,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+//import java.awt.BorderLayout;//사용 X
 import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.*;
@@ -23,6 +24,9 @@ public class MailGUI extends JFrame {
     private JTextField subjectField;
     private JLabel bodyForm;
     private JTextArea bodyField;
+
+    /*********/
+    private JLabel filename;
 
     /**
      * Create the frame.
@@ -52,7 +56,7 @@ public class MailGUI extends JFrame {
         senderField.setEditable(true);
 
         /*비밀번호 입력 필드*/
-        //choice를 통해서 비밀번호 찾아 일일히 입력하는 과정 간략하게
+        //choice를 통해서 비밀번호 찾아 일일히 입력하는 과정 간략
         pwField = new Choice();
         pwField.setBounds(350, 35, 200, 30);
         pwField.setFont(new Font("굴림", Font.PLAIN, 20));
@@ -62,7 +66,6 @@ public class MailGUI extends JFrame {
         pwField.add("second password");
         pwField.add("third password");
         pwField.add("forth password");
-        
         add(pwField);
 
         /*To 라벨*/
@@ -101,6 +104,29 @@ public class MailGUI extends JFrame {
         bodyField.setBounds(150, 213, 400, 272);
         contentPane.add(bodyField);
 
+        /*********************/
+        JButton btnFile = new JButton("파일 첨부");
+        btnFile.setBounds(35, 180, 100, 23);
+        contentPane.add(btnFile);
+
+        filename = new JLabel();
+        final String[] path = new String[1];
+        filename.setBounds(150, 180, 400, 30);
+        contentPane.add(filename);
+
+        btnFile.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent arg0){
+                try {
+                    FileChooser file = new FileChooser();
+                    path[0] = file.Path.toString();
+                    filename.setText(path[0]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        /********************/
+
         /*전송 버튼*/
         JButton sendButton = new JButton("메일 보내기");
 
@@ -115,18 +141,20 @@ public class MailGUI extends JFrame {
                 String To = receiverField.getText();
                 String Subject = subjectField.getText();
                 String Body = bodyField.getText();
+                String filepath = filename.getText();
 
                 if (From.length() *  To.length() * Body.length() == 0) { //Subject는 없어도 <제목없음>으로 전송되므로
                     JOptionPane.showMessageDialog(null, "메일 폼을 작성해주세요!");
                 }
 
                 try{
-                    MailServer.MailSender(From, PW, To, Subject, Body);
+                    MailServer.MailSender(From, PW, To, Subject, Body, filepath);
                     JOptionPane.showMessageDialog(null, "메일 보내기 성공!");
                     System.out.println("==========================");
                     System.out.println("메일 보내기 성공!");
                     bodyField.setText("");
                     subjectField.setText("");
+                    filename.setText("");
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "메일 보내기 실패!");
                     System.out.println("==========================");
@@ -135,5 +163,6 @@ public class MailGUI extends JFrame {
                 }
             }
         });
+
     }
 }
