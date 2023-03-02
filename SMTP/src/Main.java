@@ -90,33 +90,30 @@ class MailServer{
         mimeBody += Body + "\r\n";
         mimeBody += "\r\n";
 
+        if(path.length() != 0) {
 
-        //첨부파일 경로 가져와서 해당 파일의 mimeType 확인 후 이것을 attatch하도록
+            //첨부파일 경로 가져와서 해당 파일의 mimeType 확인 후 이것을 attatch하도록
+            Path Source = Paths.get(path);
+            String mimeType = Files.probeContentType(Source);
+            String filename = Source.getFileName().toString();
 
-        /******************************/
-        Path Source = Paths.get(path);
-        String mimeType = Files.probeContentType(Source);
-        String filename = Source.getFileName().toString();
-        System.out.println(filename);
+            mimeBody += ("--KkK170891tpbkKk__FV_KKKkkkjjwq\r\n");
+            mimeBody += ("Content-Type: " + mimeType + "\r\n");
+            mimeBody += ("Content-Transfer-Encoding: utf-8\r\n");
+            mimeBody += ("Content-Disposition: attachment;\r\n filename=" + filename + "\r\n");
+            mimeBody += "\r\n";
 
-        mimeBody += ("--KkK170891tpbkKk__FV_KKKkkkjjwq\r\n");
-        mimeBody += ("Content-Type: " + mimeType + "\r\n");
-        mimeBody += ("Content-Transfer-Encoding: utf-8\r\n");
-        mimeBody += ("Content-Disposition: attachment;\r\n filename=" + filename + "\r\n");
-        mimeBody += "\r\n";
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(path, Charset.forName("UTF-8"))
+            );
 
-        BufferedReader reader = new BufferedReader(
-                new FileReader(path, Charset.forName("UTF-8"))
-        );
-
-        String filebody;
-        while ((filebody = reader.readLine()) != null) {
-            mimeBody += hangul(filebody) + "\r\n";
+            String filebody;
+            while ((filebody = reader.readLine()) != null) {
+                mimeBody += hangul(filebody) + "\r\n";
+            }
+            reader.close();
         }
 
-        reader.close();
-        /******************************/
-    
         mimeBody += "--KkK170891tpbkKk__FV_KKKkkkjjwq--\r\n";
         outToServer.println(mimeBody);
 
@@ -143,7 +140,7 @@ class MailServer{
         System.out.println(Reply);
     }
 
-    //수정 없이 보낼경우 한글파일은 깨지므로, 유니코드 변환
+    //수정 없이 보낼경우 한글파일은 깨지므로, UTF-8 변환
     public static String hangul(String Unicodestr) throws UnsupportedEncodingException{
         if(Unicodestr==null) return null;
         return new String(Unicodestr.getBytes("UTF-8"));
