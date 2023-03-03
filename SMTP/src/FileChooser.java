@@ -3,7 +3,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 public class FileChooser extends JFrame{
-    public String Path;
+	private static final long serialVersionUID = 1576658171392892649L;
+	public String Path;
     public FileChooser(){
         JFileChooser fileChooser = new JFileChooser();
 
