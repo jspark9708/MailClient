@@ -21,7 +21,7 @@ public class MailGUI extends JFrame {
     private JLabel subjectform;
     private JTextField subjectField;
     private JLabel bodyForm;
-    private JTextArea bodyField;
+    private JTextField bodyField;
 
     private JLabel filename;
 
@@ -54,10 +54,10 @@ public class MailGUI extends JFrame {
         pwField.setBounds(350, 35, 200, 30);
         pwField.setFont(new Font("굴림", Font.PLAIN, 20));
         pwField.add(" --------------------------- ");
-        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
-        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
-        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
-        pwField.add("이곳에 Google App 비밀번호를 입력해 사용해주세요");
+        pwField.add("put your Google App Pw here");
+        pwField.add("put your Google App Pw here");
+        pwField.add("put your Google App Pw here");
+        pwField.add("put your Google App Pw here");
         add(pwField);
 
         /*To 라벨*/
@@ -91,7 +91,7 @@ public class MailGUI extends JFrame {
         contentPane.add(bodyForm);
 
         /*내용 입력받을 필드*/
-        bodyField = new JTextArea();
+        bodyField = new JTextField();
         bodyField.setColumns(10);
         bodyField.setBounds(150, 213, 400, 272);
         contentPane.add(bodyField);
@@ -140,14 +140,14 @@ public class MailGUI extends JFrame {
                         MailServer.MailSender(From, PW, To, Subject, Body, filepath);
                         JOptionPane.showMessageDialog(null, "메일 보내기 성공!");
                         System.out.println("==========================");
-                        System.out.println("메일 보내기 성공!");
+                        System.out.println("메일 보내기 성공");
                         bodyField.setText("");
                         subjectField.setText("");
                         filename.setText("");
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "메일 보내기 실패!");
                         System.out.println("==========================");
-                        System.out.println("메일 보내기 실패!");
+                        System.out.println("메일 보내기 실패");
                         System.out.println(e.toString());
                     }
                 }
