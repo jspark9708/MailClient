@@ -21,7 +21,7 @@ public class MailGUI extends JFrame {
     private JLabel subjectform;
     private JTextField subjectField;
     private JLabel bodyForm;
-    private JTextField bodyField;
+    private JTextArea bodyField;
 
     private JLabel filename;
 
@@ -84,22 +84,28 @@ public class MailGUI extends JFrame {
         subjectField.setBounds(150, 145, 400, 30);
         contentPane.add(subjectField);
 
+        /*파일첨부 표시*/
+        subjectform = new JLabel("파일 첨부");
+        subjectform.setFont(new Font("굴림", Font.PLAIN, 15));
+        subjectform.setBounds(35, 195, 100, 30);
+        contentPane.add(subjectform);
+        
+        JButton btnFile = new JButton("첨부하기");
+        btnFile.setBounds(150, 195, 100, 23);
+        contentPane.add(btnFile);
+        
         /*Body 표시*/
         bodyForm = new JLabel("내용");
         bodyForm.setFont(new Font("굴림", Font.PLAIN, 15));
-        bodyForm.setBounds(35, 211, 100, 30);
+        bodyForm.setBounds(35, 245, 100, 30);
         contentPane.add(bodyForm);
 
         /*내용 입력받을 필드*/
-        bodyField = new JTextField();
+        bodyField = new JTextArea();
         bodyField.setColumns(10);
-        bodyField.setBounds(150, 213, 400, 272);
+        bodyField.setBounds(150, 240, 400, 270);
         contentPane.add(bodyField);
-
-        JButton btnFile = new JButton("파일 첨부");
-        btnFile.setBounds(35, 180, 100, 23);
-        contentPane.add(btnFile);
-
+        
         filename = new JLabel();
         final String[] path = new String[1];
         filename.setBounds(150, 180, 400, 30);
@@ -120,7 +126,7 @@ public class MailGUI extends JFrame {
         /*전송 버튼*/
         JButton sendButton = new JButton("메일 보내기");
 
-        sendButton.setBounds(280, 517, 150, 23);
+        sendButton.setBounds(280, 525, 150, 23);
         contentPane.add(sendButton);
 
         sendButton.addActionListener(new ActionListener() {
